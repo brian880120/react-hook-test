@@ -1,26 +1,50 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useEffect, useState } from 'react';
 import './App.css';
+import { useForm, useFetch } from './useForm';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+const  App = () => {
+    const [ values, handleChange ] = useForm({
+        email: '',
+        password: '',
+        firstName: '',
+    });
+
+    const initCount = JSON.parse(localStorage.getItem('count'));
+    const [ count, setCount ] = useState(initCount ? initCount : 0);
+    const { data } = useFetch(`http://numbersapi.com/${count}/trivia`);
+
+    useEffect(() => {
+        localStorage.setItem('count', JSON.stringify(count));
+    }, [count]);
+
+    return (
+        <div className="App">
+            <div>
+                {
+                    !data ? 'loading...' : data
+                }
+            </div>
+            <button onClick={() => setCount(c => c + 1)}>+</button>
+            <button onClick={() => setCount(c => c - 1)}>-</button>
+            <input
+                name="email"
+                value={values.email}
+                onChange={handleChange}
+            />
+            <input
+                name="firstName"
+                placeholder="first name"
+                value={values.firstName}
+                onChange={handleChange}
+            />
+            <input
+                type="password"
+                name="password"
+                value={values.password}
+                onChange={handleChange}
+            />
+        </div>
+    );
 }
 
 export default App;
