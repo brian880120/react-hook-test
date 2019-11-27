@@ -1,16 +1,5 @@
 import { useState, useEffect } from 'react';
 
-export const useForm = (initialValues) => {
-    const [ values, setValues ] = useState(initialValues);
-
-    return [values, e => {
-        setValues({
-            ...values,
-            [e.target.name]: e.target.value,
-        });
-    }];
-};
-
 export const useFetch = (url) => {
     const [ state, setState ] = useState({
         data: null,
