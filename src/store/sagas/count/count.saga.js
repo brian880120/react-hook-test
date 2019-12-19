@@ -1,7 +1,6 @@
 import {
     put,
     takeEvery,
-    delay,
 } from 'redux-saga/effects';
 
 function* incrementAsync(data) {

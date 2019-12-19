@@ -1,8 +1,8 @@
 import React, { useEffect, useState, useRef } from 'react';
-import './App.css';
 import { useForm } from '../hooks/useForm';
 import { useFetch } from '../hooks/useFetch';
 import Counter from './counter/Counter';
+import { Hello } from './hello/Hello';
 
 const  App = () => {
     const [ values, handleChange ] = useForm({
@@ -54,6 +54,7 @@ const  App = () => {
             />
             <button onClick={onFocusClick}>focus</button>
             <Counter />
+            <Hello />
         </div>
     );
 }

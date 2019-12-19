@@ -1,20 +1,22 @@
 import React from 'react';
-import { render } from 'react-dom';
+import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { Provider } from 'react-redux';
+import { IntlProvider } from 'react-intl';
 import configureStore from './store';
 import App from './components/App';
-import './index.css';
 import * as serviceWorker from './serviceWorker';
 
 const store = configureStore();
 
-render(
-    <Provider store={store}>
-        <Router>
-            <Route component={App} />
-        </Router>
-    </Provider>,
+ReactDOM.hydrate(
+    <IntlProvider locale="en">
+        <Provider store={store}>
+            <Router>
+                <Route component={App} />
+            </Router>
+        </Provider>
+    </IntlProvider>,
     document.getElementById('root')
 );
 
